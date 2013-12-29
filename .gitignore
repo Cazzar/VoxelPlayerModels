@@ -1,0 +1,6 @@
+/minecraft
+/build
+/.gradle
+/eclipse
+/.idea
+*.iml
