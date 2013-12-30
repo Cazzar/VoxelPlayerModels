@@ -1,5 +1,6 @@
-package net.cazzar.mods.voxelplayers;
+package net.cazzar.mods.voxelplayers.client;
 
+import net.cazzar.mods.voxelplayers.VoxelPlayers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
@@ -36,7 +37,7 @@ public class ModelPlayer extends ModelBiped {
     public void setUpCustom(String name) {
         myBody = VoxelPlayers.proxy.playerBodies.get(name);
 
-        if (myBody == null && name.equals(Minecraft.getMinecraft().thePlayer.username)) {
+        if (myBody == null && name.equals(Minecraft.getMinecraft().thePlayer.func_146103_bH().getName())) {
             myBody = Serializer.deserializeBody(System.getenv("APPDATA") + "\\.minecraft\\models\\" + name + ".body");
             VoxelPlayers.proxy.playerBodies.put(name, myBody);
         }

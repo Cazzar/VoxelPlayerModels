@@ -1,19 +1,6 @@
 package net.cazzar.mods.voxelplayers.network;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.IPacketHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
-import net.cazzar.mods.voxelplayers.VoxelPlayers;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import voxelplayermodels.Body;
-
-import java.io.*;
-import java.util.Map;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
-
+/*
 public class PacketHandler implements IPacketHandler {
     @Override
     public void onPacketData(INetworkManager manager, Packet250CustomPayload payload, Player player) {
@@ -93,3 +80,4 @@ public class PacketHandler implements IPacketHandler {
         }
     }
 }
+                   */

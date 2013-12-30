@@ -1,26 +1,26 @@
-package net.cazzar.mods.voxelplayers;
+package net.cazzar.mods.voxelplayers.client;
 
 import com.google.common.collect.Maps;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.event.ForgeSubscribe;
 
 import java.util.Map;
 
-public class RenderingHandler {
+public class EventHandler {
     Map<String, ModelPlayer> models = Maps.newHashMap();
-    @ForgeSubscribe
+
+    @SubscribeEvent
     public void render(RenderPlayerEvent.Pre e) {
         ModelPlayer model;
-        if (!models.containsKey(e.entityPlayer.username)) {
+        if (!models.containsKey(e.entityPlayer.func_146103_bH().getName())) {
             model = new ModelPlayer();
-            model.setUpCustom(e.entityPlayer.username);
-            models.put(e.entityPlayer.username, model);
-        }
-        else {
-            model = models.get(e.entityPlayer.username);
+            model.setUpCustom(e.entityPlayer.func_146103_bH().getName());
+            models.put(e.entityPlayer.func_146103_bH().getName(), model);
+        } else {
+            model = models.get(e.entityPlayer.func_146103_bH().getName());
         }
 
         ObfuscationReflectionHelper.setPrivateValue(RendererLivingEntity.class, e.renderer, model, "mainModel");

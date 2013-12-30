@@ -4,12 +4,10 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import net.cazzar.mods.voxelplayers.network.PacketHandler;
 import net.cazzar.mods.voxelplayers.proxy.CommonProxy;
 
 @Mod(modid = "VoxelPlayerModels", name = "Custom Player Models")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {"VoxelModels"}, packetHandler = PacketHandler.class)
+//@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {"VoxelModels"}, packetHandler = PacketHandler.class)
 public class VoxelPlayers {
     @Mod.Instance
     public static VoxelPlayers instance;

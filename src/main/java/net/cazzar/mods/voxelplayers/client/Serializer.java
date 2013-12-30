@@ -1,4 +1,4 @@
-package net.cazzar.mods.voxelplayers;
+package net.cazzar.mods.voxelplayers.client;
 
 import voxelplayermodels.Body;
 
@@ -20,7 +20,7 @@ public class Serializer {
                 fileIn.close();
             }
         } catch (Exception e) {//if there was no file to load
-        	System.out.println(e);
+            System.out.println(e);
         }
         return toReturn;
     }
