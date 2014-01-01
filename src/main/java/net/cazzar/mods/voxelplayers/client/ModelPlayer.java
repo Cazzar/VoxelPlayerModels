@@ -6,6 +6,8 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import voxelplayermodels.Body;
 
+import java.io.File;
+
 public class ModelPlayer extends ModelBiped {
 
     ModelRenderer[][][] head;
@@ -38,7 +40,7 @@ public class ModelPlayer extends ModelBiped {
         myBody = VoxelPlayers.proxy.playerBodies.get(name);
 
         if (myBody == null && name.equals(Minecraft.getMinecraft().thePlayer.func_146103_bH().getName())) {
-            myBody = Serializer.deserializeBody(System.getenv("APPDATA") + "\\.minecraft\\models\\" + name + ".body");
+            myBody = Serializer.deserializeBody(new File(Minecraft.getMinecraft().mcDataDir, name + ".body"));
             VoxelPlayers.proxy.playerBodies.put(name, myBody);
         }
 
