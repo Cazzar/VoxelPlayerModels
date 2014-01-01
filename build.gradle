@@ -20,7 +20,7 @@ apply plugin: "forge"  // actually applies the plugin.
 group = 'net.cazzar.mods.voxelplayers'  // your base page
 version = "1.0.0"
 archivesBaseName = 'VoxelPlayers'
-minecraft { version = "1.7.2-10.12.0.976" }
+minecraft { version = "1.7.2-10.12.0.982" }
 
 logger.lifecycle "" + version
 
@@ -52,6 +52,6 @@ jar { classifier = 'universal' }
 //}
 //dependencies { compile 'net.cazzar.corelib:CazzarCoreLib:MC1.6.4-1.0.2-5281b7b:deobf' }
 
-tasks.withType(Compile) {
+tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }

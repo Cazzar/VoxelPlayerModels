@@ -31,6 +31,7 @@ public class PlayerDataPacket implements IVoxelPacket {
 
     @Override
     public void readBytes(ByteBuf bytes) {
+        System.out.println(String.format("Recieved: %s", getClass().getCanonicalName()));
         short len = bytes.readShort();
         char[] chars = new char[len];
         for (int i = 0; i < len; i++) chars[i] = bytes.readChar();

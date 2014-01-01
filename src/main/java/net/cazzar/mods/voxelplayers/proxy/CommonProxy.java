@@ -1,6 +1,8 @@
 package net.cazzar.mods.voxelplayers.proxy;
 
 import com.google.common.collect.Maps;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.FMLEmbeddedChannel;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.channel.embedded.EmbeddedChannel;
@@ -14,7 +16,7 @@ import java.util.Map;
 
 public class CommonProxy {
     public Map<String, Body> playerBodies = Maps.newHashMap();
-    public EnumMap<Side, EmbeddedChannel> channel;
+    public EnumMap<Side, FMLEmbeddedChannel> channel;
 
 
     public void initNetworking() {
@@ -24,6 +26,7 @@ public class CommonProxy {
 
     public void initOther() {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
+        FMLCommonHandler.instance().bus().register(new EventHandler());
     }
 
     public void init() {

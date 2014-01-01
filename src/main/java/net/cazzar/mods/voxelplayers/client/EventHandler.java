@@ -3,11 +3,19 @@ package net.cazzar.mods.voxelplayers.client;
 import com.google.common.collect.Maps;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.network.FMLNetworkEvent;
+import net.cazzar.mods.voxelplayers.network.packets.ClientDataPacket;
+import net.cazzar.mods.voxelplayers.network.packets.PlayerDataPacket;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import java.util.Map;
+
+import static cpw.mods.fml.common.network.FMLOutboundHandler.FML_MESSAGETARGET;
+import static cpw.mods.fml.common.network.FMLOutboundHandler.OutboundTarget.TOSERVER;
+import static net.cazzar.mods.voxelplayers.VoxelPlayers.proxy;
+import static net.minecraft.client.Minecraft.getMinecraft;
 
 public class EventHandler {
     Map<String, ModelPlayer> models = Maps.newHashMap();
@@ -25,5 +33,15 @@ public class EventHandler {
 
         ObfuscationReflectionHelper.setPrivateValue(RendererLivingEntity.class, e.renderer, model, "mainModel");
         ObfuscationReflectionHelper.setPrivateValue(RenderPlayer.class, e.renderer, model, "modelBipedMain");
+    }
+
+    @SubscribeEvent
+    public void clientConnect(FMLNetworkEvent.ClientConnectedToServerEvent event) {
+        proxy.getClientChannel().attr(FML_MESSAGETARGET).set(TOSERVER);
+        String player = getMinecraft().thePlayer.func_146103_bH().getName();
+        proxy.getClientChannel().writeOutbound(new PlayerDataPacket(player));
+        proxy.getClientChannel().writeOutbound(new ClientDataPacket(player, ClientDataPacket.Messages.REQUEST));
+
+
     }
 }

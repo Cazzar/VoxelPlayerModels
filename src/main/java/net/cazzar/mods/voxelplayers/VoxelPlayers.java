@@ -18,6 +18,7 @@ public class VoxelPlayers {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         proxy.init();
+
     }
 
     @Mod.EventHandler

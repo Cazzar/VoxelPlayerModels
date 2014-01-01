@@ -27,6 +27,7 @@ public class ClientDataPacket implements IVoxelPacket {
 
     @Override
     public void readBytes(ByteBuf bytes) {
+        System.out.println(String.format("Recieved %s", getClass().getCanonicalName()));
         message = Messages.values()[bytes.readInt()];
         short len = bytes.readShort();
         char[] str = new char[len];

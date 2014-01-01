@@ -1,8 +1,11 @@
 package net.cazzar.mods.voxelplayers.network.packets;
 
-import cpw.mods.fml.common.network.FMLOutboundHandler;
 import io.netty.buffer.ByteBuf;
-import net.cazzar.mods.voxelplayers.VoxelPlayers;
+
+import static cpw.mods.fml.common.network.FMLOutboundHandler.FML_MESSAGETARGET;
+import static cpw.mods.fml.common.network.FMLOutboundHandler.OutboundTarget.TOSERVER;
+import static net.cazzar.mods.voxelplayers.VoxelPlayers.proxy;
+import static net.cazzar.mods.voxelplayers.network.packets.ClientDataPacket.Messages.REQUEST;
 
 public class VoxelLoginPacket implements IVoxelPacket {
     String name;
@@ -18,20 +21,28 @@ public class VoxelLoginPacket implements IVoxelPacket {
 
     @Override
     public void readBytes(ByteBuf bytes) {
-        short len = bytes.readShort();
+        System.out.println(String.format("Recieved: %s", getClass().getCanonicalName()));
+        int len = bytes.readInt();
         char[] chars = new char[len];
         for (int i = 0; i < len; i++) chars[i] = bytes.readChar();
         name = String.valueOf(chars);
 
-        if (VoxelPlayers.proxy.playerBodies.containsKey(name)) {
-            VoxelPlayers.proxy.getClientChannel().attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.TOSERVER);
-            VoxelPlayers.proxy.getClientChannel().writeOutbound(new ClientDataPacket(name, ClientDataPacket.Messages.REQUEST));
+//        if (VoxelPlayers.proxy.playerBodies.containsKey(name)) {
+        proxy.getClientChannel().attr(FML_MESSAGETARGET).set(TOSERVER);
+        if (proxy.getBody(name) != null) {
+            proxy.getClientChannel().writeOutbound(new PlayerDataPacket(name));
         }
+        proxy.getClientChannel().writeOutbound(new ClientDataPacket(name, REQUEST));
+//        }
     }
 
     @Override
     public void writeBytes(ByteBuf bytes) {
+        bytes.resetReaderIndex();
+        bytes.resetWriterIndex();
+
         bytes.writeInt(name.length());
+
         for (char c : name.toCharArray()) bytes.writeChar(c);
     }
 }
