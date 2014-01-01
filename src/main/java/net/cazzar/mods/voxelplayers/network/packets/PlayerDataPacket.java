@@ -7,6 +7,7 @@ import voxelplayermodels.Body;
 
 import java.io.*;
 import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import static net.cazzar.mods.voxelplayers.VoxelPlayers.proxy;
 
@@ -21,7 +22,7 @@ public class PlayerDataPacket implements IVoxelPacket {
 
     public PlayerDataPacket(String name) {
         this.name = name;
-        this.body = proxy.playerBodies.get(name);
+        this.body = proxy.getBody(name);
     }
 
     public PlayerDataPacket(String name, Body body) {
@@ -31,7 +32,8 @@ public class PlayerDataPacket implements IVoxelPacket {
 
     @Override
     public void readBytes(ByteBuf bytes) {
-        System.out.println(String.format("Recieved: %s", getClass().getCanonicalName()));
+//        System.out.println(String.format("Received: %s", getClass().getCanonicalName()));
+//        System.out.println("Received packet of " + bytes.array().length + " bytes.");
         short len = bytes.readShort();
         char[] chars = new char[len];
         for (int i = 0; i < len; i++) chars[i] = bytes.readChar();
@@ -45,6 +47,7 @@ public class PlayerDataPacket implements IVoxelPacket {
         try {
             ObjectInputStream obj = new ObjectInputStream(new GZIPInputStream(new ByteArrayInputStream(compressedBody)));
             body = (Body) obj.readObject();
+            obj.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,7 +65,23 @@ public class PlayerDataPacket implements IVoxelPacket {
 
     @Override
     public void writeBytes(ByteBuf bytes) {
-        ByteArrayOutputStream packetData = new ByteArrayOutputStream();
+        bytes.writeShort(name.length());
+        for (char c : name.toCharArray()) bytes.writeChar(c);
+        try {
+            ByteArrayOutputStream obj = new ByteArrayOutputStream();
+            GZIPOutputStream gzip = new GZIPOutputStream(obj);
+            ObjectOutputStream objStream = new ObjectOutputStream(gzip);
+            objStream.writeObject(body);
+            objStream.close();
+
+            bytes.writeShort(obj.size());
+            bytes.writeBytes(obj.toByteArray());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        System.out.println("Sending packet of " + bytes.array().length + " bytes.");
+       /* ByteArrayOutputStream packetData = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(packetData);
 
         try {
@@ -79,6 +98,6 @@ public class PlayerDataPacket implements IVoxelPacket {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+         */
     }
 }

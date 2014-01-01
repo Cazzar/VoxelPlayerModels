@@ -7,6 +7,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import voxelplayermodels.Body;
 
+import java.io.File;
+
 @SuppressWarnings("UnusedDeclaration")
 public class ClientProxy extends CommonProxy {
     @Override
@@ -21,7 +23,7 @@ public class ClientProxy extends CommonProxy {
             Body myBody = VoxelPlayers.proxy.playerBodies.get(name);
 
             if (myBody == null && name.equals(Minecraft.getMinecraft().thePlayer.func_146103_bH().getName())) {
-                myBody = Serializer.deserializeBody(System.getenv("APPDATA") + "\\.minecraft\\models\\" + name + ".body");
+                myBody = Serializer.deserializeBody(new File(Minecraft.getMinecraft().mcDataDir, name + ".body"));
                 playerBodies.put(name, myBody);
             }
         }

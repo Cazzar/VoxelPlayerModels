@@ -21,8 +21,9 @@ public class VoxelLoginPacket implements IVoxelPacket {
 
     @Override
     public void readBytes(ByteBuf bytes) {
-        System.out.println(String.format("Recieved: %s", getClass().getCanonicalName()));
+//        System.out.println(String.format("Recieved: %s", getClass().getCanonicalName()));
         int len = bytes.readInt();
+        System.out.println(len);
         char[] chars = new char[len];
         for (int i = 0; i < len; i++) chars[i] = bytes.readChar();
         name = String.valueOf(chars);
@@ -38,11 +39,11 @@ public class VoxelLoginPacket implements IVoxelPacket {
 
     @Override
     public void writeBytes(ByteBuf bytes) {
-        bytes.resetReaderIndex();
-        bytes.resetWriterIndex();
+//        bytes.resetReaderIndex();
+//        bytes.resetWriterIndex();
 
         bytes.writeInt(name.length());
-
+        System.out.print(name.length());
         for (char c : name.toCharArray()) bytes.writeChar(c);
     }
 }
