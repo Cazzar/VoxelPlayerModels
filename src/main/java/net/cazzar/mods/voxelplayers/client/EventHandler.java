@@ -31,8 +31,8 @@ public class EventHandler {
             model = models.get(e.entityPlayer.func_146103_bH().getName());
         }
 
-        ObfuscationReflectionHelper.setPrivateValue(RendererLivingEntity.class, e.renderer, model, "mainModel");
-        ObfuscationReflectionHelper.setPrivateValue(RenderPlayer.class, e.renderer, model, "modelBipedMain");
+        ObfuscationReflectionHelper.setPrivateValue(RendererLivingEntity.class, e.renderer, model, "mainModel", "field_77045_g");
+        ObfuscationReflectionHelper.setPrivateValue(RenderPlayer.class, e.renderer, model, "modelBipedMain", "field_77109_a");
     }
 
     @SubscribeEvent
@@ -41,7 +41,5 @@ public class EventHandler {
         String player = getMinecraft().thePlayer.func_146103_bH().getName();
         proxy.getClientChannel().writeOutbound(new PlayerDataPacket(player));
         proxy.getClientChannel().writeOutbound(new ClientDataPacket(player, ClientDataPacket.Messages.REQUEST));
-
-
     }
 }

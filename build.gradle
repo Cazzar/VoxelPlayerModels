@@ -55,3 +55,10 @@ jar { classifier = 'universal' }
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
+task zip(type: Zip) {
+    from jar.outputs.files
+    from('BodyShop') {into('BodyShop')}
+}
+
+reobf { deobfFile = new net.minecraftforge.gradle.delayed.DelayedFile(project, "build/tmp/deobfBinJar/deobfed.jar") }
