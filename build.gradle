@@ -57,7 +57,7 @@ tasks.withType(JavaCompile) {
 }
 
 task zip(type: Zip) {
-    from jar.outputs.files
+    from reobf.outputs.files
     from('BodyShop') {into('BodyShop')}
 }
 
