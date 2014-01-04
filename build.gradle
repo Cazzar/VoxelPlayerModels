@@ -61,4 +61,4 @@ task zip(type: Zip) {
     from('BodyShop') {into('BodyShop')}
 }
 
-reobf { deobfFile = new net.minecraftforge.gradle.delayed.DelayedFile(project, "build/tmp/deobfBinJar/deobfed.jar") }
+reobf { deobfFile = new net.minecraftforge.gradle.delayed.DelayedFile(project, "build/tmp/deobfuscateJar/deobfed.jar") }
