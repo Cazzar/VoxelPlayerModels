@@ -26,31 +26,24 @@ logger.lifecycle "" + version
 
 version = "MC${minecraft.version}-$version"
 
-processResources
-        {
-            // replace stuff in text files, not binary ones.
-            from(sourceSets.main.resources.srcDirs) {
-                include '**/*.lang'
-                include '**/*.info'
+processResources {
+    // replace stuff in text files, not binary ones.
+    from(sourceSets.main.resources.srcDirs) {
+            include '**/*.lang'
+            include '**/*.info'
 
-                expand 'version': project.version, 'mcversion': project.minecraft.version
-                // replace version and MCVersion
-            }
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+        // replace version and MCVersion
+    }
 
-            // copy everything else, thats not text
-            from(sourceSets.main.resources.srcDirs) {
-                exclude '**/*.lang'
-                exclude '**/*.info'
-            }
-        }
+    // copy everything else, thats not text
+    from(sourceSets.main.resources.srcDirs) {
+        exclude '**/*.lang'
+        exclude '**/*.info'
+    }
+}
 
 jar { classifier = 'universal' }
-
-//repositories {
-//	mavenCentral()
-//	maven { url 'https://s3.amazonaws.com/CazzarMods/repo/' }
-//}
-//dependencies { compile 'net.cazzar.corelib:CazzarCoreLib:MC1.6.4-1.0.2-5281b7b:deobf' }
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
