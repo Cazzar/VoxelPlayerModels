@@ -50,7 +50,7 @@ processResources {
 
 jar { 
     classifier = 'universal'
-    manifest { attribute "Implementation-Version": actualVersion }
+    manifest { attributes "Implementation-Version": actualVersion }
 }
 
 tasks.withType(JavaCompile) {
