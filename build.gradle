@@ -15,16 +15,20 @@ buildscript {
     }
 }
 
-apply plugin: "forge"  // actually applies the plugin.
+apply plugin: "forge"
 
-group = 'net.cazzar.mods.voxelplayers'  // your base page
+group = 'net.cazzar.mods.voxelplayers'
 version = "1.0.0"
 archivesBaseName = 'VoxelPlayers'
 minecraft { version = "1.7.2-10.12.0.982" }
 
 logger.lifecycle "" + version
 
-version = "MC${minecraft.version}-$version"
+if (System.getenv("BUILD_NUMBER") != null) {
+    version = "MC${minecraft.version}-$version." + System.getenv("BUILD_NUMBER");
+    actualVersion += "." + System.getenv("BUILD_NUMBER");
+}
+else version = "MC${minecraft.version}-$version"
 
 processResources {
     // replace stuff in text files, not binary ones.
