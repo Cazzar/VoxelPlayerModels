@@ -24,9 +24,10 @@ minecraft { version = "1.7.2-10.12.0.982" }
 
 logger.lifecycle "" + version
 
+def actualVersion = version
 if (System.getenv("BUILD_NUMBER") != null) {
-    version = "MC${minecraft.version}-$version." + System.getenv("BUILD_NUMBER");
-    actualVersion += "." + System.getenv("BUILD_NUMBER");
+    version = "MC${minecraft.version}-$version." + System.getenv("BUILD_NUMBER")
+    actualVersion += "." + System.getenv("BUILD_NUMBER")
 }
 else version = "MC${minecraft.version}-$version"
 
@@ -47,7 +48,10 @@ processResources {
     }
 }
 
-jar { classifier = 'universal' }
+jar { 
+    classifier = 'universal'
+    manifest { attribute "Implementation-Version": actualVersion }
+}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
