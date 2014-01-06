@@ -79,25 +79,5 @@ public class PlayerDataPacket implements IVoxelPacket {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        System.out.println("Sending packet of " + bytes.array().length + " bytes.");
-       /* ByteArrayOutputStream packetData = new ByteArrayOutputStream();
-        DataOutputStream out = new DataOutputStream(packetData);
-
-        try {
-            out.writeUTF(name);
-            ByteArrayOutputStream obj = new ByteArrayOutputStream();
-            ObjectOutputStream objStream = new ObjectOutputStream(obj);
-            objStream.writeObject(body);
-
-            out.writeShort(obj.size());
-
-            out.write(obj.toByteArray());
-
-            bytes.writeBytes(packetData.toByteArray());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-         */
     }
 }

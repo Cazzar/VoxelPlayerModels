@@ -17,7 +17,7 @@ public class EventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void join(PlayerEvent.PlayerLoggedInEvent event) {
-        System.out.println(String.format("hit: %s.join", getClass().getCanonicalName()));
+//        System.out.println(String.format("hit: %s.join", getClass().getCanonicalName()));
 //        if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
         proxy.getServerChannel().attr(FML_MESSAGETARGET).set(PLAYER);
         proxy.getServerChannel().attr(FML_MESSAGETARGETARGS).set(event.player);

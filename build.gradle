@@ -19,8 +19,9 @@ apply plugin: "forge"
 
 group = 'net.cazzar.mods.voxelplayers'
 version = "1.0.0"
+//noinspection GroovyUnusedAssignment
 archivesBaseName = 'VoxelPlayers'
-minecraft { version = "1.7.2-10.12.0.982" }
+minecraft { version = "1.7.2-10.12.0.995" }
 
 logger.lifecycle "" + version
 
@@ -48,7 +49,7 @@ processResources {
     }
 }
 
-jar { 
+jar {
     classifier = 'universal'
     manifest { attributes "Implementation-Version": actualVersion }
 }
@@ -61,5 +62,3 @@ task zip(type: Zip) {
     from reobf.outputs.files
     from('BodyShop') {into('BodyShop')}
 }
-
-reobf { deobfFile = new net.minecraftforge.gradle.delayed.DelayedFile(project, "build/tmp/deobfuscateJar/deobfed.jar") }
